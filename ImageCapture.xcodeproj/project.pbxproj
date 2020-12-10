@@ -13,6 +13,8 @@
 		8B1205A6257F1B0E00748EAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B1205A4257F1B0E00748EAF /* Main.storyboard */; };
 		8B1205A8257F1B1200748EAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B1205A7257F1B1200748EAF /* Assets.xcassets */; };
 		8B1205AB257F1B1200748EAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B1205A9257F1B1200748EAF /* LaunchScreen.storyboard */; };
+		8B1205B4257F30B600748EAF /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1205B3257F30B600748EAF /* ImageModel.swift */; };
+		8B1205B7257F324400748EAF /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1205B6257F324400748EAF /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		8B1205A7257F1B1200748EAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B1205AA257F1B1200748EAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B1205AC257F1B1200748EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B1205B3257F30B600748EAF /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		8B1205B6257F324400748EAF /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				8B1205A7257F1B1200748EAF /* Assets.xcassets */,
 				8B1205A9257F1B1200748EAF /* LaunchScreen.storyboard */,
 				8B1205AC257F1B1200748EAF /* Info.plist */,
+				8B1205B3257F30B600748EAF /* ImageModel.swift */,
+				8B1205B6257F324400748EAF /* CollectionViewController.swift */,
 			);
 			path = ImageCapture;
 			sourceTree = "<group>";
@@ -140,6 +146,8 @@
 				8B1205A3257F1B0E00748EAF /* ViewController.swift in Sources */,
 				8B12059F257F1B0E00748EAF /* AppDelegate.swift in Sources */,
 				8B1205A1257F1B0E00748EAF /* SceneDelegate.swift in Sources */,
+				8B1205B4257F30B600748EAF /* ImageModel.swift in Sources */,
+				8B1205B7257F324400748EAF /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
