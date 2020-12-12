@@ -15,6 +15,7 @@
 		8B1205AB257F1B1200748EAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B1205A9257F1B1200748EAF /* LaunchScreen.storyboard */; };
 		8B1205B4257F30B600748EAF /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1205B3257F30B600748EAF /* ImageModel.swift */; };
 		8B1205B7257F324400748EAF /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1205B6257F324400748EAF /* CollectionViewController.swift */; };
+		8BA117FA2583AC96006D4926 /* EditImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA117F92583AC96006D4926 /* EditImageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8B1205AC257F1B1200748EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B1205B3257F30B600748EAF /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		8B1205B6257F324400748EAF /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		8BA117F92583AC96006D4926 /* EditImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				8B1205AC257F1B1200748EAF /* Info.plist */,
 				8B1205B3257F30B600748EAF /* ImageModel.swift */,
 				8B1205B6257F324400748EAF /* CollectionViewController.swift */,
+				8BA117F92583AC96006D4926 /* EditImageController.swift */,
 			);
 			path = ImageCapture;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B1205A3257F1B0E00748EAF /* ViewController.swift in Sources */,
+				8BA117FA2583AC96006D4926 /* EditImageController.swift in Sources */,
 				8B12059F257F1B0E00748EAF /* AppDelegate.swift in Sources */,
 				8B1205A1257F1B0E00748EAF /* SceneDelegate.swift in Sources */,
 				8B1205B4257F30B600748EAF /* ImageModel.swift in Sources */,
