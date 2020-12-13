@@ -22,24 +22,25 @@ class CollectionController: UICollectionViewController {
     }
     
     @IBAction func openCameraOrImage() {
-        let popUpView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopUpView") as! ViewController
-        self.addChild(popUpView)
-        
-        popUpView.view.frame = self.view.frame
-        self.view.addSubview(popUpView.view)
-        popUpView.didMove(toParent: self)
+       
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.images.count
     }
     
+    
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(respondToPress))
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath as IndexPath)
         let img = UIImage(data: images[indexPath.item].image)
-        let imageView = UIImageView()
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         imageView.image = img
+        cell.layer.cornerRadius = 5.0
         cell.contentView.addSubview(imageView)
+        cell.addGestureRecognizer(longPress)
+        cell.tag = indexPath.item
         return cell
     }
     
@@ -55,12 +56,34 @@ class CollectionController: UICollectionViewController {
                     destination.image = images[indexPath.item]
                 }
             }
+        } else if segue.identifier == "CreateImageSegue" {
+            if segue.destination is EditImageController {
+                
+            }
         }
     }
     
+    @objc func respondToPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == UILongPressGestureRecognizer.State.ended {
+            // todo create a popup menu on cell to delete image from db and collection view
+            print("respond to press", sender.view!.tag)
+            if ImageManager.main.delete(image: images[sender.view!.tag]) {
+                reload()
+            }
+        }
+    }
+    
+    // Update Images list and reload
     func reload() {
         images = ImageManager.main.getAllImages()
         self.collectionView.reloadData()
     }
     
+}
+
+extension CollectionController: UICollectionViewDelegateFlowLayout {
+    // Set Size of cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 100)
+    }
 }
