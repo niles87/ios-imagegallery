@@ -47,6 +47,8 @@
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow access to use camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow Image Capture to save images to library</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
