@@ -10,8 +10,8 @@ import SQLite3
 
 struct Image {
     let id: Int
-    let image: Data
-    let date: Date
+    var image: Data
+    var date: Date
 }
 
 class ImageManager {
@@ -113,23 +113,25 @@ class ImageManager {
         return Int(sqlite3_last_insert_rowid(database))
     }
     
-    func delete(image: Image) {
+    func delete(image: Image) -> Bool {
         connect()
         
         var statement: OpaquePointer!
         
         if sqlite3_prepare(database, "DELETE FROM images WHERE rowid = ?", -1, &statement, nil) != SQLITE_OK {
             print("could not create delete statement")
-            return
+            return false
         }
         
         sqlite3_bind_int(statement, 1, Int32(image.id))
         
         if sqlite3_step(statement) != SQLITE_DONE {
             print("Error deleting from db")
-            return
+            return false
         }
         
         sqlite3_finalize(statement)
+        
+        return true
     }
 }
