@@ -118,6 +118,9 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <connections>
+                                    <action selector="editImage" destination="BYZ-38-t0r" eventType="touchUpInside" id="bsO-y6-gR3"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FbP-8L-zRy">
                                 <rect key="frame" x="16" y="64" width="343" height="539"/>
@@ -148,7 +151,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="edit" destination="wBr-jR-8Fi" id="HhW-zP-ZX1"/>
+                        <outlet property="editButton" destination="wBr-jR-8Fi" id="ZoV-h5-r31"/>
                         <outlet property="imageView" destination="FbP-8L-zRy" id="9fl-xK-pOB"/>
                         <outlet property="popUp" destination="Ldy-G3-Dfy" id="E0L-0w-L0k"/>
                     </connections>
