@@ -9,6 +9,10 @@ import UIKit
 
 class CollectionController: UICollectionViewController {
     
+    deinit {
+        print("Freeing memory in Collection view")
+    }
+    
     var images: [Image] = []
     
     override func viewDidLoad() {
@@ -19,6 +23,11 @@ class CollectionController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         reload()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
     }
     
     @IBAction func openCameraOrImage() {
@@ -36,6 +45,7 @@ class CollectionController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath as IndexPath)
         let img = UIImage(data: images[indexPath.item].image)
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        imageView.contentMode = .scaleAspectFill
         imageView.image = img
         cell.layer.cornerRadius = 5.0
         cell.contentView.addSubview(imageView)
