@@ -15,6 +15,7 @@
 		8B1205B4257F30B600748EAF /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1205B3257F30B600748EAF /* ImageModel.swift */; };
 		8B1205B7257F324400748EAF /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1205B6257F324400748EAF /* CollectionViewController.swift */; };
 		8B2F73ED2586EDF4005077F5 /* FilterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2F73EC2586EDF4005077F5 /* FilterHelper.swift */; };
+		8B553AA7258EA94500EA7D88 /* FilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B553AA6258EA94500EA7D88 /* FilterController.swift */; };
 		8BA117FA2583AC96006D4926 /* EditImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA117F92583AC96006D4926 /* EditImageController.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		8B1205B3257F30B600748EAF /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		8B1205B6257F324400748EAF /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		8B2F73EC2586EDF4005077F5 /* FilterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHelper.swift; sourceTree = "<group>"; };
+		8B553AA6258EA94500EA7D88 /* FilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterController.swift; sourceTree = "<group>"; };
 		8BA117F92583AC96006D4926 /* EditImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				8B1205B6257F324400748EAF /* CollectionViewController.swift */,
 				8BA117F92583AC96006D4926 /* EditImageController.swift */,
 				8B2F73EC2586EDF4005077F5 /* FilterHelper.swift */,
+				8B553AA6258EA94500EA7D88 /* FilterController.swift */,
 			);
 			path = ImageCapture;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 				8B1205B4257F30B600748EAF /* ImageModel.swift in Sources */,
 				8B1205B7257F324400748EAF /* CollectionViewController.swift in Sources */,
 				8B2F73ED2586EDF4005077F5 /* FilterHelper.swift in Sources */,
+				8B553AA7258EA94500EA7D88 /* FilterController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
