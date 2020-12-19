@@ -9,7 +9,7 @@ import Foundation
 import SQLite3
 
 struct Image {
-    let id: Int
+    var id: Int
     var image: Data
     var date: Date
 }
