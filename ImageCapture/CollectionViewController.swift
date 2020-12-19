@@ -15,19 +15,9 @@ class CollectionController: UICollectionViewController {
     
     var images: [Image] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        reload()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         reload()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
     }
     
     @IBAction func openCameraOrImage() {
@@ -38,13 +28,11 @@ class CollectionController: UICollectionViewController {
         return self.images.count
     }
     
-    
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(respondToPress))
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath as IndexPath)
         let img = UIImage(data: images[indexPath.item].image)
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
         imageView.contentMode = .scaleAspectFill
         imageView.image = img
         cell.layer.cornerRadius = 5.0
@@ -64,11 +52,12 @@ class CollectionController: UICollectionViewController {
                let indexPath = self.collectionView.indexPath(for: cell) {
                 if let destination = segue.destination as? EditImageController {
                     destination.image = images[indexPath.item]
+                    images = []
                 }
             }
         } else if segue.identifier == "CreateImageSegue" {
             if segue.destination is EditImageController {
-                
+                images = []
             }
         }
     }
@@ -94,6 +83,6 @@ class CollectionController: UICollectionViewController {
 extension CollectionController: UICollectionViewDelegateFlowLayout {
     // Set Size of cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: 75, height: 75)
     }
 }
