@@ -19,78 +19,82 @@ class EditImageController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var popUp: UIView!
-    @IBOutlet var editButton: UIButton!
+    @IBOutlet var editBar: UIToolbar!
+    @IBOutlet var filterButton: UIBarButtonItem!
+    @IBOutlet var cropButton: UIBarButtonItem!
+    @IBOutlet var filterPicker: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        editButton.layer.cornerRadius = 10.0
         popUp.backgroundColor = .systemFill
+        filterPicker.isHidden = true
         
         if image != nil {
             popUp.isHidden = true
             imageView.image = UIImage(data: image!.image)
             
         } else {
-            editButton.isHidden = true
+            editBar.isHidden = true
             popUp.layer.cornerRadius = 10.0
             popUp.isHidden = false
         }
     }
     
-    @IBAction func editImage() {
-        var editedImg: UIImage!
-        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Sepia Tone", style: .default, handler: {_ in
-            print("adding Sepia")
-            if self.image == nil {
-                editedImg = Filters.main.sepiaTone(value: 1.0, image: self.newImage, context: self.context)
-            } else {
-                editedImg = Filters.main.sepiaTone(value: 1.0, image: UIImage(data: self.image.image), context: self.context)
-            }
-            self.imageView.image = editedImg
-
-        }))
-        ac.addAction(UIAlertAction(title: "Noir", style: .default, handler: {_ in
-            print("Noir")
-            if self.image == nil {
-                editedImg = Filters.main.noir(image: self.newImage, context: self.context)
-            } else {
-                editedImg = Filters.main.noir(image: UIImage(data: self.image.image), context: self.context)
-            }
-            self.imageView.image = editedImg
-        }))
-        ac.addAction(UIAlertAction(title: "Invert", style: .default, handler: {_ in
-            print("inverted")
-            if self.image == nil {
-                editedImg = Filters.main.invert(image: self.newImage, context: self.context)
-            } else {
-                editedImg = Filters.main.invert(image: UIImage(data: self.image.image), context: self.context)
-            }
-            self.imageView.image = editedImg
-        }))
-        ac.addAction(UIAlertAction(title: "Grey Scale", style: .default, handler: {_ in
-            print("Grey scaled")
-            if self.image == nil {
-                editedImg = Filters.main.greyScale(value: 1.0, image: self.newImage, context: self.context)
-            } else {
-                editedImg = Filters.main.greyScale(value: 1.0, image: UIImage(data: self.image.image), context: self.context)
-            }
-            self.imageView.image = editedImg
-        }))
-        ac.addAction(UIAlertAction(title: "Vintage", style: .default, handler: {_ in
-            print("vintage")
-            if self.image == nil {
-                editedImg = Filters.main.vintage(image: self.newImage, context: self.context)
-            } else {
-                editedImg = Filters.main.vintage(image: UIImage(data: self.image.image), context: self.context)
-            }
-            self.imageView.image = editedImg
-        }))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in
-            print("canceled")
-        }))
-        present(ac, animated: true, completion: nil)
+    @IBAction func filter() {
+        filterPicker.isHidden = false
     }
+    
+    @IBAction func crop() {
+        print("crop image")
+    }
+    
+//    @IBAction func editImage() {
+//        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        ac.addAction(UIAlertAction(title: "Sepia Tone", style: .default, handler: {[weak self] _ in
+//            print("adding Sepia")
+//            if self!.image == nil {
+//                self?.imageView.image = Filters.main.sepiaTone(value: 1.0, image: self?.newImage, context: self!.context)
+//            } else {
+//                self?.imageView.image = Filters.main.sepiaTone(value: 1.0, image: UIImage(data: self!.image.image), context: self!.context)
+//            }
+//        }))
+//        ac.addAction(UIAlertAction(title: "Noir", style: .default, handler: {[weak self] _ in
+//            print("Noir")
+//            if self!.image == nil {
+//                self?.imageView.image = Filters.main.noir(image: self?.newImage, context: self!.context)
+//            } else {
+//                self?.imageView.image = Filters.main.noir(image: UIImage(data: self!.image.image), context: self!.context)
+//            }
+//        }))
+//        ac.addAction(UIAlertAction(title: "Invert", style: .default, handler: {[weak self] _ in
+//            print("inverted")
+//            if self!.image == nil {
+//                self?.imageView.image = Filters.main.invert(image: self?.newImage, context: self!.context)
+//            } else {
+//                self?.imageView.image = Filters.main.invert(image: UIImage(data: (self?.image.image)!), context: self!.context)
+//            }
+//        }))
+//        ac.addAction(UIAlertAction(title: "Grey Scale", style: .default, handler: {[weak self] _ in
+//            print("Grey scaled")
+//            if self!.image == nil {
+//                self?.imageView.image = Filters.main.greyScale(value: 1.0, image: self?.newImage, context: self!.context)
+//            } else {
+//                self?.imageView.image = Filters.main.greyScale(value: 1.0, image: UIImage(data: (self?.image.image)!), context: self!.context)
+//            }
+//        }))
+//        ac.addAction(UIAlertAction(title: "Vintage", style: .default, handler: {[weak self] _ in
+//            print("vintage")
+//            if self?.image == nil {
+//                self?.imageView.image = Filters.main.vintage(image: self?.newImage, context: self!.context)
+//            } else {
+//                self?.imageView.image = Filters.main.vintage(image: UIImage(data: (self?.image.image)!), context: self!.context)
+//            }
+//        }))
+//        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in
+//            print("canceled")
+//        }))
+//        present(ac, animated: true, completion: nil)
+//    }
 
     @IBAction func openCamera() {
         popUp.isHidden = true
@@ -98,8 +102,9 @@ class EditImageController: UIViewController {
         picker.sourceType = .camera
         picker.allowsEditing = false
         picker.delegate = self
-        present(picker, animated: true, completion: nil)
-        editButton.isHidden = false
+        present(picker, animated: true) {
+            self.editBar.isHidden = false
+        }
     }
     
     @IBAction func openPhotos() {
@@ -107,22 +112,23 @@ class EditImageController: UIViewController {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
-        present(picker, animated: true, completion: nil)
-        editButton.isHidden = false
+        present(picker, animated: true) {
+            self.editBar.isHidden = false
+        }
     }
     
     @IBAction func saveImage() {
         if imageView.image != nil {
             
             if image != nil {
-                image.image = (imageView.image?.pngData()!)!
+                image.image = (imageView.image?.fixOrientation().pngData())!
                 if ImageManager.main.update(image: image) > 0 {
                     let alert = UIAlertController(title: "Image Updated!", message: nil, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     present(alert, animated: true, completion: nil)
                 }
             } else {
-                let updatedImg = Image(id: -1, image: (imageView.image?.pngData()!)!, date: Date())
+                let updatedImg = Image(id: -1, image: (imageView.image?.fixOrientation().pngData())!, date: Date())
                 
                 if ImageManager.main.create(image: updatedImg) > 0 {
                     let alert = UIAlertController(title: "Image Saved", message: nil, preferredStyle: .alert)
@@ -148,7 +154,10 @@ class EditImageController: UIViewController {
 
 extension EditImageController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: {
+            self.editBar.isHidden = true
+            self.popUp.isHidden = false
+        })
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
