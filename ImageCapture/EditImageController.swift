@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditImageController: UIViewController {
+class EditImageController: UIViewController, UIPickerViewDataSource {
     
     deinit {
         print("Freeing memory from Edit Image Controller")
@@ -16,18 +16,36 @@ class EditImageController: UIViewController {
     let context = CIContext()
     var image: Image!
     var newImage: UIImage!
+    var wheelContent = [ApplyFilter]()
+    var intensity = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    var colors = ["Grey", "Blue", "Red", "Yellow", "Green", "Orange", "Purple"]
+    var pickedFilter = ""
+    var pickedIntensity = ""
+    var pickedColor = ""
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var popUp: UIView!
     @IBOutlet var editBar: UIToolbar!
     @IBOutlet var filterButton: UIBarButtonItem!
     @IBOutlet var cropButton: UIBarButtonItem!
-    @IBOutlet var filterPicker: UIView!
+    @IBOutlet var filterPicker: UIPickerView!
+    @IBOutlet var addFilterButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         popUp.backgroundColor = .systemFill
         filterPicker.isHidden = true
+        addFilterButton.isHidden = true
+        addFilterButton.backgroundColor = .secondarySystemBackground
+        
+        wheelContent.append(ApplyFilter(filter: "Sepia", intensity: intensity, color: nil))
+        wheelContent.append(ApplyFilter(filter: "MonoColor", intensity: intensity, color: colors))
+        wheelContent.append(ApplyFilter(filter: "Noir", intensity: nil, color: nil))
+        wheelContent.append(ApplyFilter(filter: "Inverted", intensity: nil, color: nil))
+        wheelContent.append(ApplyFilter(filter: "Vintage", intensity: nil, color: nil))
+        
+        filterPicker.dataSource = self
+        filterPicker.delegate = self
         
         if image != nil {
             popUp.isHidden = true
@@ -41,60 +59,41 @@ class EditImageController: UIViewController {
     }
     
     @IBAction func filter() {
-        filterPicker.isHidden = false
+        if filterPicker.isHidden {
+            filterPicker.isHidden = false
+            addFilterButton.isHidden = false
+        } else {
+            filterPicker.isHidden = true
+            addFilterButton.isHidden = true
+        }
+    }
+    
+    @IBAction func addFilter() {
+        
+        switch pickedFilter {
+        case "Sepia":
+            let img = Filters.main.sepiaTone(value: (Float(pickedIntensity)! / 10), image: UIImage(data: image.image), context: context)
+            imageView.image = img
+        case "MonoColor":
+            let img = Filters.main.greyScale(value: (Float(pickedIntensity)! / 10), color: pickedColor, image: UIImage(data: image.image), context: context)
+            imageView.image = img
+        case "Inverted":
+            let img = Filters.main.invert(image: UIImage(data: image.image), context: context)
+            imageView.image = img
+        case "Noir":
+            let img = Filters.main.noir(image: UIImage(data: image.image), context: context)
+            imageView.image = img
+        case "Vintage":
+            let img = Filters.main.vintage(image: UIImage(data: image.image), context: context)
+            imageView.image = img 
+        default:
+            print("unknown filter")
+        }
     }
     
     @IBAction func crop() {
         print("crop image")
     }
-    
-//    @IBAction func editImage() {
-//        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        ac.addAction(UIAlertAction(title: "Sepia Tone", style: .default, handler: {[weak self] _ in
-//            print("adding Sepia")
-//            if self!.image == nil {
-//                self?.imageView.image = Filters.main.sepiaTone(value: 1.0, image: self?.newImage, context: self!.context)
-//            } else {
-//                self?.imageView.image = Filters.main.sepiaTone(value: 1.0, image: UIImage(data: self!.image.image), context: self!.context)
-//            }
-//        }))
-//        ac.addAction(UIAlertAction(title: "Noir", style: .default, handler: {[weak self] _ in
-//            print("Noir")
-//            if self!.image == nil {
-//                self?.imageView.image = Filters.main.noir(image: self?.newImage, context: self!.context)
-//            } else {
-//                self?.imageView.image = Filters.main.noir(image: UIImage(data: self!.image.image), context: self!.context)
-//            }
-//        }))
-//        ac.addAction(UIAlertAction(title: "Invert", style: .default, handler: {[weak self] _ in
-//            print("inverted")
-//            if self!.image == nil {
-//                self?.imageView.image = Filters.main.invert(image: self?.newImage, context: self!.context)
-//            } else {
-//                self?.imageView.image = Filters.main.invert(image: UIImage(data: (self?.image.image)!), context: self!.context)
-//            }
-//        }))
-//        ac.addAction(UIAlertAction(title: "Grey Scale", style: .default, handler: {[weak self] _ in
-//            print("Grey scaled")
-//            if self!.image == nil {
-//                self?.imageView.image = Filters.main.greyScale(value: 1.0, image: self?.newImage, context: self!.context)
-//            } else {
-//                self?.imageView.image = Filters.main.greyScale(value: 1.0, image: UIImage(data: (self?.image.image)!), context: self!.context)
-//            }
-//        }))
-//        ac.addAction(UIAlertAction(title: "Vintage", style: .default, handler: {[weak self] _ in
-//            print("vintage")
-//            if self?.image == nil {
-//                self?.imageView.image = Filters.main.vintage(image: self?.newImage, context: self!.context)
-//            } else {
-//                self?.imageView.image = Filters.main.vintage(image: UIImage(data: (self?.image.image)!), context: self!.context)
-//            }
-//        }))
-//        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in
-//            print("canceled")
-//        }))
-//        present(ac, animated: true, completion: nil)
-//    }
 
     @IBAction func openCamera() {
         popUp.isHidden = true
@@ -169,5 +168,54 @@ extension EditImageController: UIImagePickerControllerDelegate, UINavigationCont
         
         newImage = photo
         imageView.image = photo
+    }
+}
+
+extension EditImageController: UIPickerViewDelegate {
+    func numberOfComponents(in: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ picker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return wheelContent.count
+        } else if component == 1 {
+            let selectedFilter = filterPicker.selectedRow(inComponent: 0)
+            return wheelContent[selectedFilter].intensity?.count ?? 0
+        } else {
+            let selectedFilter = filterPicker.selectedRow(inComponent: 0)
+            return wheelContent[selectedFilter].color?.count ?? 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return wheelContent[row].filter
+        } else if component == 1 {
+            let selectedFilter = filterPicker.selectedRow(inComponent: 0)
+            return wheelContent[selectedFilter].intensity?[row] ?? ""
+        } else {
+            let selectedFilter = filterPicker.selectedRow(inComponent: 0)
+            return wheelContent[selectedFilter].color?[row] ?? ""
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        filterPicker.reloadComponent(1)
+        filterPicker.reloadComponent(2)
+        
+        let filter = filterPicker.selectedRow(inComponent: 0)
+        
+        if filterPicker.selectedRow(inComponent: 1) >= 0 {
+            let intensity = filterPicker.selectedRow(inComponent: 1)
+            pickedIntensity = wheelContent[filter].intensity?[intensity] ?? ""
+        }
+        
+        if filterPicker.selectedRow(inComponent: 2) >= 0 {
+            let color = filterPicker.selectedRow(inComponent: 2)
+            pickedColor = wheelContent[filter].color?[color] ?? ""
+        }
+
+        pickedFilter = wheelContent[filter].filter
     }
 }
