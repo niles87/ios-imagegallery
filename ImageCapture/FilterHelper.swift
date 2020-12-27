@@ -14,7 +14,6 @@ class Filters {
     private init() {}
     
     private func display(filter: CIFilter, image: UIImage!, context: CIContext) -> UIImage {
-        print("in display function")
         let newImg = image.fixOrientation()
         filter.setValue(CIImage(image: newImg), forKey: kCIInputImageKey)
         let output = filter.outputImage
@@ -24,13 +23,31 @@ class Filters {
     func sepiaTone(value: Float, image: UIImage!, context: CIContext) -> UIImage {
         let filter = CIFilter(name: "CISepiaTone")
         filter?.setValue(value, forKey: kCIInputIntensityKey)
-        print("in sepiaTone")
         return display(filter: filter!, image: image, context: context)
     }
     
-    func greyScale(value: Float, image: UIImage!, context: CIContext) -> UIImage {
+    func greyScale(value: Float, color: String, image: UIImage!, context: CIContext) -> UIImage {
         let filter = CIFilter(name: "CIColorMonochrome")
-        filter?.setValue(CIColor(color: .gray), forKey: "inputColor")
+        var clr: CIColor
+        switch color {
+        case "Blue":
+            clr = .blue
+        case "Grey":
+            clr = .gray
+        case "Green":
+            clr = .green
+        case "Orange":
+            clr = .init(red: 1.0, green: 0.5, blue: 0.0)
+        case "Purple":
+            clr = .init(red: 0.5, green: 0.0, blue: 0.5)
+        case "Red":
+            clr = .red
+        case "Yellow":
+            clr = .yellow
+        default:
+            clr = .gray
+        }
+        filter?.setValue(clr, forKey: "inputColor")
         filter?.setValue(value, forKey: "inputIntensity")
         return display(filter: filter!, image: image, context: context)
     }
