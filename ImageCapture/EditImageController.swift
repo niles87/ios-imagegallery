@@ -23,6 +23,7 @@ class EditImageController: UIViewController, UIPickerViewDataSource {
     var pickedFilter = ""
     var pickedIntensity = ""
     var pickedColor = ""
+    var orgImg: UIImage!
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var popUp: UIView!
@@ -51,6 +52,7 @@ class EditImageController: UIViewController, UIPickerViewDataSource {
         if image != nil {
             popUp.isHidden = true
             imageView.image = UIImage(data: image!.image)
+            orgImg = imageView.image
             
         } else {
             editBar.isHidden = true
@@ -70,7 +72,6 @@ class EditImageController: UIViewController, UIPickerViewDataSource {
     }
     
     @IBAction func addFilter() {
-        let orgImg = imageView.image
         
         switch pickedFilter {
         case "Sepia":
@@ -170,6 +171,7 @@ extension EditImageController: UIImagePickerControllerDelegate, UINavigationCont
         
         newImage = photo
         imageView.image = photo
+        orgImg = imageView.image
     }
 }
 
