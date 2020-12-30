@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CropViewController
 
 class EditImageController: UIViewController, UIPickerViewDataSource {
     
@@ -69,22 +70,23 @@ class EditImageController: UIViewController, UIPickerViewDataSource {
     }
     
     @IBAction func addFilter() {
+        let orgImg = imageView.image
         
         switch pickedFilter {
         case "Sepia":
-            let img = Filters.main.sepiaTone(value: (Float(pickedIntensity)! / 10), image: UIImage(data: image.image), context: context)
+            let img = Filters.main.sepiaTone(value: (Float(pickedIntensity)! / 10), image: orgImg, context: context)
             imageView.image = img
         case "MonoColor":
-            let img = Filters.main.greyScale(value: (Float(pickedIntensity)! / 10), color: pickedColor, image: UIImage(data: image.image), context: context)
+            let img = Filters.main.greyScale(value: (Float(pickedIntensity)! / 10), color: pickedColor, image: orgImg, context: context)
             imageView.image = img
         case "Inverted":
-            let img = Filters.main.invert(image: UIImage(data: image.image), context: context)
+            let img = Filters.main.invert(image: orgImg, context: context)
             imageView.image = img
         case "Noir":
-            let img = Filters.main.noir(image: UIImage(data: image.image), context: context)
+            let img = Filters.main.noir(image: orgImg, context: context)
             imageView.image = img
         case "Vintage":
-            let img = Filters.main.vintage(image: UIImage(data: image.image), context: context)
+            let img = Filters.main.vintage(image: orgImg, context: context)
             imageView.image = img 
         default:
             print("unknown filter")
@@ -92,7 +94,7 @@ class EditImageController: UIViewController, UIPickerViewDataSource {
     }
     
     @IBAction func crop() {
-        print("crop image")
+        presentCropViewController()
     }
 
     @IBAction func openCamera() {
@@ -217,5 +219,28 @@ extension EditImageController: UIPickerViewDelegate {
         }
 
         pickedFilter = wheelContent[filter].filter
+    }
+}
+
+extension EditImageController: CropViewControllerDelegate {
+    func presentCropViewController() {
+        let image: UIImage = imageView.image!
+        
+        let cropViewController = CropViewController(image: image)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true, completion: nil)
+    }
+
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+            // 'image' is the newly cropped version of the original image
+        
+        updateImageViewWithImage(image, fromCropViewController: cropViewController)
+    }
+    
+    func updateImageViewWithImage(_ image: UIImage, fromCropViewController cropViewController: CropViewController) {
+        imageView.image = image
+        
+        self.imageView.isHidden = false
+        cropViewController.dismiss(animated: true, completion: nil)
     }
 }
